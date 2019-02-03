@@ -36,6 +36,12 @@
         width: $width;
         height: 100%;
 
+        transform: rotate(30deg);
+
+        mix-blend-mode: difference;
+
+        // animation: stub 15s linear infinite;
+
         &::after {
             content: '';
             display: block;
@@ -45,7 +51,33 @@
             left: 0;
             height: 13.5%;
             mix-blend-mode: difference;
-            background-color: map-get($colors, light);
+            background: map-get($colors, light);
         } 
+    }
+
+    #{$c}__hours {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 50%;
+        overflow: hidden;
+
+        svg {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+@keyframes stub {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
