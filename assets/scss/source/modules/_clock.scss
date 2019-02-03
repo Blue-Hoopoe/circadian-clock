@@ -19,7 +19,7 @@
 
     // Body.
     #{$c}__body {
-        isolation: isolate;
+        width: 100%;
         position: relative;
         padding-bottom: 100%;
         background: map-get($colors, light);
@@ -30,17 +30,13 @@
 
     #{$c}__minutes {
         $width: rem-calc(2px);
-        position: absolute;
-        top: 0;
-        left: calc(50% - #{$width});
+        
         width: $width;
         height: 100%;
-
-        transform: rotate(30deg);
-
+        position: absolute;
+        top: 0;
+        left: calc(50% - #{$width/2});
         mix-blend-mode: difference;
-
-        // animation: stub 15s linear infinite;
 
         &::after {
             content: '';
@@ -68,16 +64,20 @@
             max-width: 100%;
             width: 100%;
             height: auto;
+
+            path {
+                fill: map-get($colors, dark);
+                transform-origin: 50%;
+            }
         }
     }
-}
 
-@keyframes stub {
-    from {
-        transform: rotate(0);
-    }
-
-    to {
-        transform: rotate(360deg);
+    &[data-period="am"] {
+        #{$c}__body {
+            background-color: map-get($colors, dark);
+        }
+        #{$c}__hours svg path {
+            fill: map-get($colors, light);
+        }
     }
 }

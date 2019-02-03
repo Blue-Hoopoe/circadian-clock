@@ -8,21 +8,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    
-    <div class="wrapper">
 
+    <div class="wrapper">
         <div class="clock">
             <div class="clock__body">
-                <div class="clock__hours">
-                    <svg viewBox="0 0 100 100">
-                        <polygon points="50,0 50,50, 100,0" fill="#262626"/>
-                    </svg>
+                <div class="clock__hours" data-hours>
+                    <svg viewBox="0 0 100 100"></svg>
                 </div>
-                <div class="clock__minutes"></div>
+                <div class="clock__minutes" data-minutes></div>
+                <div class="clock__minutes" data-seconds></div>
             </div>
         </div>
-
     </div>
+
+    <!-- <path d="M50,50 L50,0 L78.86752,0"/> -->
 
     <script src="assets/js/app.js"></script>
 
