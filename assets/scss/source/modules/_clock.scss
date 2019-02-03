@@ -1,0 +1,51 @@
+.clock {
+
+    // Variables.
+    $c: &;
+    $width: 326px;
+    $colors: (
+        light: #e6e6e6,
+        dark: #262626,
+    );
+
+    // Self.
+    & {
+        max-width: rem-calc($width);
+        width: rem-calc($width);
+        height: auto;
+        position: relative;
+        padding: rem-calc(30px);
+    }
+
+    // Body.
+    #{$c}__body {
+        isolation: isolate;
+        position: relative;
+        padding-bottom: 100%;
+        background: map-get($colors, light);
+        border-radius: 50%;
+        box-shadow: rem-calc(5px) rem-calc(6px) rem-calc(20px) rgba(0, 0, 0, 0.3);
+        border: rem-calc(2px) solid map-get($colors, dark);
+    }
+
+    #{$c}__minutes {
+        $width: rem-calc(2px);
+        position: absolute;
+        top: 0;
+        left: calc(50% - #{$width});
+        width: $width;
+        height: 100%;
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 13.5%;
+            mix-blend-mode: difference;
+            background-color: map-get($colors, light);
+        } 
+    }
+}
