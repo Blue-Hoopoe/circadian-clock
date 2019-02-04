@@ -35,8 +35,9 @@ class Clock {
         this.elements = elements;
     }
 
-    start() {
-        this.started = this.previous = new Date();
+    start(from = new Date()) {
+        this.started = new Date();
+        this.offset = this.started - from;
         this.interval = setInterval(() => {
             this.update();
         }, 1000);
@@ -45,16 +46,17 @@ class Clock {
 
     stop() {
         clearInterval(this.interval);
-        this.interval = this.started = null;
+        this.interval = this.started = this.offset = null;
     }
 
     update() {
 
-        let now = new Date();
-        let delta = new Delta(this.started);
+        let computed = new Date(new Date() - this.offset);
+        console.log(computed)
+        let delta = new Delta(this.started, computed);
 
         // Indicating period of the day.
-        this.elements.root.setAttribute('data-period', now.getHours() < 12 ? 'am' : 'pm');
+        this.elements.root.setAttribute('data-period', computed.getHours() < 12 ? 'am' : 'pm');
 
         // Setting up seconds.
         this.elements.seconds.style.transform = `rotate(${ delta.seconds * 6 }deg)`;
@@ -66,9 +68,11 @@ class Clock {
         // To do: don't call this function everytime.
         this.elements.hours.querySelector('svg > circle').setAttribute('stroke-dashoffset',  Math.floor(delta.hours) * 30);
 
-
-        this.previous = now;
+        this.previous = computed;
     }
 }
 
-new Clock(document.querySelector('.clock')).start();
+(() => {
+    let clock = new Clock(document.querySelector('.clock'));
+    clock.start();
+})()
