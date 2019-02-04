@@ -9,11 +9,6 @@
         accent: #03a9f4,
     );
 
-    // Mixins.
-    @mixin tik-tok-transition {
-        transition: transform .8s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
     // Self.
     & {
         max-width: rem-calc($width);
@@ -36,13 +31,11 @@
 
     #{$c}__minutes, #{$c}__seconds {
         $width: rem-calc(2px);
-        
         width: $width;
         height: 100%;
         position: absolute;
         top: 0;
         left: calc(50% - #{$width/2});
-        @include tik-tok-transition;
         mix-blend-mode: difference;
 
         &::after {
@@ -93,6 +86,15 @@
         }
         #{$c}__hours svg path {
             fill: map-get($colors, light);
+        }
+    }
+
+    &[data-initialized] {
+        #{$c}__minutes, #{$c}__seconds {
+            transition: transform .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        #{$c}__hours svg circle{
+            transition: .5s all ease-in-out;
         }
     }
 }

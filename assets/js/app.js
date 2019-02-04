@@ -42,17 +42,18 @@ class Clock {
             this.update();
         }, 1000);
         this.update();
+        this.elements.root.setAttribute('data-initialized', '');
     }
 
     stop() {
         clearInterval(this.interval);
         this.interval = this.started = this.offset = null;
+        this.elements.root.removeAttribute('data-initialized');
     }
 
     update() {
 
         let computed = new Date(new Date() - this.offset);
-        console.log(computed)
         let delta = new Delta(this.started, computed);
 
         // Indicating period of the day.
