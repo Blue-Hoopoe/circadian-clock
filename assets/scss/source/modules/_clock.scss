@@ -6,7 +6,13 @@
     $colors: (
         light: #e6e6e6,
         dark: #262626,
+        accent: #03a9f4,
     );
+
+    // Mixins.
+    @mixin tik-tok-transition {
+        transition: transform .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
 
     // Self.
     & {
@@ -28,7 +34,7 @@
         border: rem-calc(2px) solid map-get($colors, dark);
     }
 
-    #{$c}__minutes {
+    #{$c}__minutes, #{$c}__seconds {
         $width: rem-calc(2px);
         
         width: $width;
@@ -36,6 +42,7 @@
         position: absolute;
         top: 0;
         left: calc(50% - #{$width/2});
+        @include tik-tok-transition;
         mix-blend-mode: difference;
 
         &::after {
@@ -46,9 +53,15 @@
             right: 0;
             left: 0;
             height: 13.5%;
+            background: map-get($colors, accent);
+        } 
+    }
+
+    #{$c}__minutes {
+        &::after {
             mix-blend-mode: difference;
             background: map-get($colors, light);
-        } 
+        }
     }
 
     #{$c}__hours {
@@ -64,10 +77,12 @@
             max-width: 100%;
             width: 100%;
             height: auto;
+            transform: rotate(90deg) scaleX(-1);
 
-            path {
-                fill: map-get($colors, dark);
-                transform-origin: 50%;
+            circle {
+                stroke: map-get($colors, dark);
+                fill: none;
+                transition: .5s all ease-in-out;
             }
         }
     }

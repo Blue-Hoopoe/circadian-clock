@@ -1,3 +1,26 @@
+class Delta {
+    
+    constructor(base, reference = new Date()) {
+        if (!base) throw new Error(`Cannot create Delta instance without its base time.`); 
+        this.base = base;
+        if (this.reference < base) throw new Error(`Reference cannot be less than base.`);
+        this.reference = reference;
+        this.delta = this.reference - this.base;
+    }
+
+    get seconds() {
+        return this.base.getSeconds() + this.delta / 1000;
+    }
+
+    get minutes() {
+        return this.base.getMinutes() + this.seconds / 60;
+    }
+
+    get hours() {
+        return this.base.getHours() + this.minutes / 60;
+    }
+}
+
 class Clock {
 
     constructor(root) {
@@ -28,26 +51,21 @@ class Clock {
     update() {
 
         let now = new Date();
-        console.log(now.toLocaleTimeString());
+        let delta = new Delta(this.started);
 
         // Indicating period of the day.
         this.elements.root.setAttribute('data-period', now.getHours() < 12 ? 'am' : 'pm');
 
         // Setting up seconds.
-        this.elements.seconds.style.transform = `rotate(${ now.getSeconds() * 6 }deg)`;
+        this.elements.seconds.style.transform = `rotate(${ delta.seconds * 6 }deg)`;
 
         // Setting up minutes.
-        this.elements.minutes.style.transform = `rotate(${ now.getMinutes() * 360 / 60 }deg)`;
+        this.elements.minutes.style.transform = `rotate(${ Math.floor(delta.minutes) * 360 / 60 }deg)`;
 
         // Setting up hours.
         // To do: don't call this function everytime.
-        if (true || now.getHours() !== this.previous.getHours()) {
-            let content = '';
-            for (let i = 0; i < now.getHours() % 12; i++) {
-                content += `<path d="M49.9,50 L49,0 L79,0" transform="rotate(${ 29.9 * i })"/>`
-            }
-            this.elements.hours.querySelector('svg').innerHTML = content;
-        }
+        this.elements.hours.querySelector('svg > circle').setAttribute('stroke-dashoffset',  Math.floor(delta.hours) * 30);
+
 
         this.previous = now;
     }
