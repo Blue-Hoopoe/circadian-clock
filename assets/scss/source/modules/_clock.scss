@@ -75,17 +75,7 @@
             circle {
                 stroke: map-get($colors, dark);
                 fill: none;
-                transition: .5s all ease-in-out;
             }
-        }
-    }
-
-    &[data-period="am"] {
-        #{$c}__body {
-            background-color: map-get($colors, dark);
-        }
-        #{$c}__hours svg path {
-            fill: map-get($colors, light);
         }
     }
 

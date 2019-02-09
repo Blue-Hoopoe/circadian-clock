@@ -76,4 +76,4 @@ class Clock {
 (() => {
     let clock = new Clock(document.querySelector('.clock'));
     clock.start();
-})()
+})();
