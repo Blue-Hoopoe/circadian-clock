@@ -3,11 +3,6 @@
     // Variables.
     $c: &;
     $width: 326px;
-    $colors: (
-        light: #e6e6e6,
-        dark: #262626,
-        accent: #03a9f4,
-    );
 
     // Self.
     max-width: 100%;
@@ -45,7 +40,7 @@
             left: 0;
             height: 13.5%;
             background: map-get($colors, accent);
-        } 
+        }
     }
 
     &__minutes {
@@ -76,7 +71,7 @@
             }
         }
     }
-    
+
     &__prompt {
         padding-top: 30px;
         white-space: nowrap;
@@ -84,9 +79,11 @@
     }
 
     &[data-initialized] {
-        #{$c}__minutes, #{$c}__seconds {
+        #{$c}__seconds,
+        #{$c}__minutes {
             transition: transform .8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+
         #{$c}__hours svg circle{
             transition: .5s all ease-in-out;
         }
