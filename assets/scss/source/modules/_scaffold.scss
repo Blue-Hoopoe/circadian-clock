@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+
 html {
     height: 100%;
+    font-family: 'Noto Sans', sans-serif;
+    background: #e2e2e2;
 }
 
 body {
@@ -16,5 +20,33 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e2e2e2;
+
+    &__inner {
+        max-width: 100%;
+        padding: rem-calc(30px);
+        box-sizing: border-box;
+    }
+}
+
+.copyrights {
+    position: fixed;
+    top: -8px;
+    right: 0;
+    padding: 16px;
+
+    &__link {
+        display: block;
+        padding-top: 8px;
+        opacity: .5;
+        transition-duration: .3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &__icon {
+        max-width: 32px;
+        height: auto;
+    }
 }

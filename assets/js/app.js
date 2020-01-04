@@ -29,7 +29,7 @@ class Clock {
 
     elementarize(root) {
         let elements = { root, };
-        ['seconds', 'minutes', 'hours'].forEach(key => {
+        ['seconds', 'minutes', 'hours', 'prompt'].forEach(key => {
             elements[key] = root.querySelector(`[data-${key}]`);
         });
         this.elements = elements;
@@ -42,7 +42,9 @@ class Clock {
             this.update();
         }, 1000);
         this.update();
-        this.elements.root.setAttribute('data-initialized', '');
+        setTimeout(() => {
+        	this.elements.root.setAttribute('data-initialized', '');
+        }, 1)
     }
 
     stop() {
@@ -69,11 +71,14 @@ class Clock {
         // To do: don't call this function everytime.
         this.elements.hours.querySelector('svg > circle').setAttribute('stroke-dashoffset',  Math.floor(delta.hours) * 30);
 
+				// Changing clock's prompt text.
+        this.elements.prompt.textContent = computed.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+				// Saving freshly computed date. 
         this.previous = computed;
     }
 }
 
-(() => {
-    let clock = new Clock(document.querySelector('.clock'));
-    clock.start();
-})();
+new Clock(
+	document.querySelector('[data-clock]')
+).start();

@@ -10,16 +10,13 @@
     );
 
     // Self.
-    & {
-        max-width: rem-calc($width);
-        width: rem-calc($width);
-        height: auto;
-        position: relative;
-        padding: rem-calc(30px);
-    }
+    max-width: 100%;
+    width: rem-calc($width);
+    height: auto;
+    position: relative;
 
     // Body.
-    #{$c}__body {
+    &__body {
         width: 100%;
         position: relative;
         padding-bottom: 100%;
@@ -29,7 +26,8 @@
         border: rem-calc(2px) solid map-get($colors, dark);
     }
 
-    #{$c}__minutes, #{$c}__seconds {
+    &__minutes,
+    &__seconds {
         $width: rem-calc(2px);
         width: $width;
         height: 100%;
@@ -50,14 +48,14 @@
         } 
     }
 
-    #{$c}__minutes {
+    &__minutes {
         &::after {
             mix-blend-mode: difference;
             background: map-get($colors, light);
         }
     }
 
-    #{$c}__hours {
+    &__hours {
         position: absolute;
         top: 0;
         right: 0;
@@ -77,6 +75,12 @@
                 fill: none;
             }
         }
+    }
+    
+    &__prompt {
+        padding-top: 30px;
+        white-space: nowrap;
+        text-align: center;
     }
 
     &[data-initialized] {
